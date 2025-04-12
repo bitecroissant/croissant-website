@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
 function App() {
@@ -5,11 +6,12 @@ function App() {
 
   return (
     <>
+      <Button onClick={() => setCount(count => count + 1)}>
+        count is {count}
+      </Button>
       <h1 className="fonts-jinbuti text-3xl font-bold underline">你好</h1>
       <div className="card">
-        <button b-1 onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

@@ -14,6 +14,12 @@
 
 [规则](https://github.com/antfu/eslint-config)
 
+## 4、分开引入 tailwindcss@3 和 shadcn@2.3.0
+
+> 暂时不要用最新版！
+
+`pnpm dlx shadcn@2.3.0 add button`
+
 # 参考
 ## 1. 原型图： https://excalidraw.com/
 
