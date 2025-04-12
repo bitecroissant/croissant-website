@@ -1,12 +1,13 @@
 {
   "name": "croissant-website",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.12.0",
     "@eslint/js": "9.21.0",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
