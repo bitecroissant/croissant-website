@@ -1,54 +1,24 @@
-# React + TypeScript + Vite
+# 🥐 可颂
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1、搭建
+`npm info vite versions` 列出所有版本
 
-Currently, two official plugins are available:
+## 2、查看结构
+删除目前无用的目录和文件（css 等），使用 `VS Code` 插件 `npm Intellisense` 锁定库版本
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+使用 `npm config set save-prefix=""`, `pnpm config set save-prefix=""` 配置新增版本也不会带尖尖 `^`
 
-## Expanding the ESLint configuration
+调整、删除部分代码， **永远不要使用默认导出**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 3、引入 `eslint`
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+[规则](https://github.com/antfu/eslint-config)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 参考
+## 1. 原型图： https://excalidraw.com/
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 2. Loader
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+[CSS 加载器](https://css-loaders.com/maze/)
+
+[CSS 旋转加载器专题](https://css-tricks.com/single-element-loaders-the-spinner/)
