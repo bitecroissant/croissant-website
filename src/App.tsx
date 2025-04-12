@@ -5,9 +5,9 @@ function App() {
 
   return (
     <>
-      <h1 className="fonts-jinbuti">你好</h1>
+      <h1 className="fonts-jinbuti text-3xl font-bold underline">你好</h1>
       <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
+        <button b-1 onClick={() => setCount(count => count + 1)}>
           count is {count}
         </button>
         <p>
