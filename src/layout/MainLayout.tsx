@@ -1,20 +1,27 @@
-import { Button } from '@/components/ui/button'
-import { Loader } from 'lucide-react'
-import { Outlet } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useEffect } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { MainLayoutHeader } from './MainLayoutHeader'
 
 export const MainLayout: React.FC = () => {
+  const nav = useNavigate()
+  const location = useLocation()
+  const { pathname } = location
+
+  const { isLoading, isAuthenticated } = useAuth0()
+  useEffect(() => {
+    if (pathname === '/' && isAuthenticated) {
+      nav('/events-dates')
+    }
+    if (!isLoading && !isAuthenticated) {
+      nav('/session')
+    }
+  }, [isLoading, isAuthenticated])
+
   return (
-    <div>
-      <div className="fonts-jinbuti p-[32px]">
-        Croissant
-
-        <Button disabled className="mx-[32px]">
-          <Loader className="animate-spin" />
-          Button
-        </Button>
-      </div>
-
+    <>
+      <MainLayoutHeader />
       <Outlet />
-    </div>
+    </>
   )
 }

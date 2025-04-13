@@ -5,6 +5,7 @@ import { eventDatesRoutes } from './eventDatesRoutes'
 import { eventRoutes } from './eventRoutes'
 import { holidayRoutes } from './holidayRoutes'
 import { poetryLineRoutes } from './poetryLineRoutes'
+import { sessionRoutes } from './sessionRoutes'
 import { solarTermsRoutes } from './solarTermsRoutes'
 
 export const router = createBrowserRouter([
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <MainLayout />,
     children: [
+      sessionRoutes,
       solarTermsRoutes,
       eventRoutes,
       eventDatesRoutes,
