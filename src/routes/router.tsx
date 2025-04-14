@@ -2,7 +2,7 @@ import { ErrorPage } from '@/components/ErrorPage'
 import { MainLayout } from '@/layout/MainLayout'
 import { createBrowserRouter } from 'react-router-dom'
 import { eventDatesRoutes } from './eventDatesRoutes'
-import { eventRoutes } from './eventRoutes'
+import { eventsRoutes } from './eventsRoutes'
 import { holidayRoutes } from './holidayRoutes'
 import { poetryLineRoutes } from './poetryLineRoutes'
 import { sessionRoutes } from './sessionRoutes'
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       sessionRoutes,
       solarTermsRoutes,
-      eventRoutes,
+      eventsRoutes,
       eventDatesRoutes,
       holidayRoutes,
       poetryLineRoutes,

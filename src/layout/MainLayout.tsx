@@ -8,9 +8,21 @@ export const MainLayout: React.FC = () => {
   const location = useLocation()
   const { pathname } = location
 
-  const { isLoading, isAuthenticated } = useAuth0()
+  const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const setJwt = async () => {
+    const jwt = await getAccessTokenSilently()
+    const savedJwt = window.localStorage.getItem('jwt') || ''
+    if (jwt && jwt !== savedJwt) {
+      window.localStorage.setItem('jwt', jwt)
+    }
+  }
+
   useEffect(() => {
-    if (pathname === '/' && isAuthenticated) {
+    setJwt()
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    if ((pathname === '/' || pathname === 'session') && isAuthenticated) {
       nav('/events-dates')
     }
     if (!isLoading && !isAuthenticated) {

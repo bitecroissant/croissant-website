@@ -20,6 +20,16 @@
 
 `pnpm dlx shadcn@2.3.0 add button`
 
+## 查找监听该端口的进程
+`sudo netstat -tulnp | grep <端口号>`
+
+输出示例：
+`tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      1234/python`
+这里 1234 是进程 ID（PID）。
+
+## 终止该进程
+sudo kill -9 <PID>
+
 # 参考
 ## 1. 原型图： https://excalidraw.com/
 
