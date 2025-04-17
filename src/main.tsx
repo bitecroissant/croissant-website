@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import { auth0ProviderOptions } from './auth0/auth0ProviderOptions'
 import { router } from './routes/router'
 import './index.scss'
+import 'virtual:svgsprites'
 
 const div = document.getElementById('root')
 const root = createRoot(div!)

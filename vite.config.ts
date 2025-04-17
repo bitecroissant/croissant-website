@@ -1,6 +1,7 @@
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { svgsprites } from './vite_plugins/svgsprites'
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
@@ -10,7 +11,7 @@ export default defineConfig(({ command }) => ({
   server: {
     port: 7000,
   },
-  plugins: [react()],
+  plugins: [react(), svgsprites()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
