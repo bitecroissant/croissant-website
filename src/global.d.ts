@@ -8,9 +8,9 @@ interface Resource<T> {
 interface Resources<T> {
   resources: T[]
   pager: {
-    page: number
+    page_no: number
     per_page: number
-    count: number
+    total: number
   }
 }
 
@@ -19,7 +19,7 @@ interface Event {
   gmt_create: string
   gmt_modified: string
   delete_flag: number
-  active_status: string
+  is_active: number
   name: string
   is_loop: number
   is_pin: number

@@ -1,14 +1,16 @@
 import { GradientRedToOrangeText } from '@/components/GradientRedToOrangeText'
 import { useAuth0 } from '@auth0/auth0-react'
+import { ArrowLeft } from 'lucide-react'
 import { MainLayoutHeaderUser } from '../layout/MainLayoutHeaderUser'
 
 interface Props {
   title: string
   subtitle?: string
+  showBack?: boolean
 }
 
 export const EventsPageHeader: React.FC<Props> = (props) => {
-  const { title, subtitle } = props
+  const { title, subtitle, showBack = false } = props
 
   const { user, logout } = useAuth0()
   const onClickLogout = () => {
@@ -22,8 +24,11 @@ export const EventsPageHeader: React.FC<Props> = (props) => {
       backdrop-blur-md supports-[backdrop-filter]:bg-gradient-to-r supports-[backdrop-filter]:from-emerald-50/80 supports-[backdrop-filter]:via-teal-50/70 supports-[backdrop-filter]:to-emerald-50/60
       shadow-lg"
     >
-      <div className="flex-1">
-        <GradientRedToOrangeText text={title} className="flex-1 text-2xl font-bold " />
+      <div className="flex-1 flex flex-col " onClick={() => { window.history.back() }}>
+        <div className="flex items-center">
+          {showBack && (<ArrowLeft className="mr-1 text-red-400" />)}
+          <GradientRedToOrangeText text={title} className="flex-1 text-2xl font-bold " />
+        </div>
         {subtitle && <p className="text-sm text-gray-600 ">{subtitle}</p>}
       </div>
 

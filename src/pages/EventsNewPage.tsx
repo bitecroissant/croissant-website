@@ -1,12 +1,13 @@
+import { EventsPageHeader } from '@/components/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
+import { ajax } from '@/lib/ajax'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowLeft, Loader } from 'lucide-react'
+import { Loader } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 const eventsFormSchema = z.object({
@@ -36,24 +37,18 @@ export const EventsNewPage: React.FC = () => {
     },
   })
 
-  async function onSubmit(_values: eventsFormType) {
+  async function onSubmit(values: eventsFormType) {
     setIsSubmitBtnLoading(true)
-    // const r = await ajax.post('/v1/event', values).finally(() => {
-    //   setIsSubmitBtnLoading(false)
-    // })
-  }
-
-  const nav = useNavigate()
-  const onClickBack = () => {
-    nav('/events')
+    await ajax.post('/v1/event', values).finally(() => {
+      setIsSubmitBtnLoading(false)
+    })
   }
 
   return (
-    <div className="fonts-jinbuti ">
-      <Button onClick={onClickBack} variant="link">
-        <ArrowLeft /> 返回事件列表
-      </Button>
-      <div className=" rounded-lg p-6 shadow-lg">
+    <div className=" ">
+      <EventsPageHeader title="创建新事件" showBack={true} />
+
+      <div className="min-h-screen rounded-lg px-6 shadow-lg pt-6 pb-32">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -65,9 +60,9 @@ export const EventsNewPage: React.FC = () => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>名称</FormLabel>
+                    <FormLabel>事件名称</FormLabel>
                     <FormControl>
-                      <Input placeholder="比如：理发" className="border-black/20" {...field} />
+                      <Input placeholder="输入事件名称，比如：理发" className="border-black/20" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -80,7 +75,7 @@ export const EventsNewPage: React.FC = () => {
               name="is_loop"
               render={({ field }) => {
                 return (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-row items-center justify-between">
                     <FormLabel>是否循环</FormLabel>
                     <FormControl>
                       <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -96,7 +91,7 @@ export const EventsNewPage: React.FC = () => {
               name="is_pin"
               render={({ field }) => {
                 return (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-row items-center justify-between">
                     <FormLabel>是否置顶</FormLabel>
                     <FormControl>
                       <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -160,7 +155,7 @@ export const EventsNewPage: React.FC = () => {
               name="is_active"
               render={({ field }) => {
                 return (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-row items-center justify-between">
                     <FormLabel>是否生效</FormLabel>
                     <FormControl>
                       <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -171,7 +166,7 @@ export const EventsNewPage: React.FC = () => {
               }}
             />
 
-            <Button disabled={isSubmitBtnLoading} type="submit">
+            <Button disabled={isSubmitBtnLoading} type="submit" className="w-full mt-8">
               {isSubmitBtnLoading && <Loader className="animate-spin" />} 提交
             </Button>
           </form>

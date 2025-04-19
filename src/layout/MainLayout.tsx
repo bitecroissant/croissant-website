@@ -1,5 +1,4 @@
 import { PageLoading } from '@/components/PageLoading'
-import { SiteNav } from '@/components/SiteNav'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -38,7 +37,7 @@ export const MainLayout: React.FC = () => {
   return (
     <div className="relative min-h-full list-none ">
       <Outlet />
-      <SiteNav />
+
     </div>
   )
 }
