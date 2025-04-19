@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { ajax } from '@/lib/ajax'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowLeft, Loader } from 'lucide-react'
 import { useState } from 'react'
@@ -37,14 +36,11 @@ export const EventsNewPage: React.FC = () => {
     },
   })
 
-  async function onSubmit(values: eventsFormType) {
+  async function onSubmit(_values: eventsFormType) {
     setIsSubmitBtnLoading(true)
-    console.error('xxxxxxx')
-    console.error(values)
-    const r = await ajax.post('/v1/event', values).finally(() => {
-      setIsSubmitBtnLoading(false)
-    })
-    console.error(r)
+    // const r = await ajax.post('/v1/event', values).finally(() => {
+    //   setIsSubmitBtnLoading(false)
+    // })
   }
 
   const nav = useNavigate()

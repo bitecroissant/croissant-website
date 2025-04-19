@@ -1,3 +1,4 @@
+import { PageLoading } from '@/components/PageLoading'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -22,13 +23,17 @@ export const MainLayout: React.FC = () => {
   }, [isAuthenticated])
 
   useEffect(() => {
-    if ((pathname === '/' || pathname === 'session') && isAuthenticated) {
-      nav('/events-dates')
+    if ((pathname === '/' || pathname === '/session') && isAuthenticated) {
+      nav('/events')
     }
     if (!isLoading && !isAuthenticated) {
       nav('/session')
     }
   }, [isLoading, isAuthenticated])
+
+  if (isLoading) {
+    return <PageLoading />
+  }
 
   return (
     <>
