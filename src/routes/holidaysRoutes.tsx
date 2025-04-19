@@ -1,7 +1,7 @@
 import { HolidayLayout } from '@/layout/HolidayLayout'
 
-export const holidayRoutes = {
-  path: 'holiday',
+export const holidaysRoutes = {
+  path: 'holidays',
   element: <HolidayLayout />,
   children: [
     { index: true, element: '节日列表' },

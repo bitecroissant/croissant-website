@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button'
+import { CalendarDays } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { EventsPageHeader } from '../components/PageHeader'
 
 export const EventsPage: React.FC = () => {
   // const { isAuthenticated } = useAuth0()
@@ -19,12 +21,16 @@ export const EventsPage: React.FC = () => {
 
   return (
     <>
-      <Button onClick={onClickNewEvent} className="fonts-jinbuti text-2xl" variant="link">
-        没有事件，去新增
-      </Button>
+      <EventsPageHeader title="我的事件" subtitle="管理和记录您重要的事件" />
 
-      <div className="rounded-lg p-6 shadow-lg">
+      <div className="pt-16 flex flex-col items-center justify-center">
+        <CalendarDays className="w-[64px] h-[64px] text-gray-700" />
+        <h1 className="text-m mt-4 text-gray-700">您还没有创建任何事件</h1>
+        <Button onClick={onClickNewEvent} className="mt-4 rounded-full">
+          创建第一个事件
+        </Button>
       </div>
+      
     </>
   )
 }

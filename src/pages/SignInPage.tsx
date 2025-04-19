@@ -16,8 +16,8 @@ export const SginInPage: React.FC = () => {
   }
 
   return (
-    <> <GradientRedToOrangeText text="可颂笔记" className="mb-8 py-2 text-2xl sm:text-3xl font-bold" />
-
+    <>
+      <GradientRedToOrangeText text="可颂笔记" className="mb-8 py-2 text-2xl sm:text-3xl font-bold" />
       <Card className="w-[320px] flex flex-col justify-center items-center p-[32px]">
         <Card className="w-[72px] h-[72px] flex items-center justify-center rounded-full shadow-lg">
           <LaptopMinimalCheck className="w-[32px] h-[32px] text-red-500" />

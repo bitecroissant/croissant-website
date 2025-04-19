@@ -1,7 +1,7 @@
 import { PoetryLineLayout } from '@/layout/PoetryLineLayout'
 
-export const poetryLineRoutes = {
-  path: 'poetry-line',
+export const poetryLinesRoutes = {
+  path: 'poetry-lines',
   element: <PoetryLineLayout />,
   children: [
     { index: true, element: '诗句列表' },
