@@ -30,7 +30,7 @@ export const EventsPage: React.FC = () => {
           创建第一个事件
         </Button>
       </div>
-      
+
     </>
   )
 }
