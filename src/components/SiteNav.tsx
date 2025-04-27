@@ -13,6 +13,7 @@ export interface NavItem {
 
 const navItems: NavItem[] = [
   { to: '/events', icon: PersonStanding, title: '事件' },
+  { to: '/events/new', icon: PersonStanding, title: '新增事件' },
   { to: '/solar-terms', icon: Sun, title: '节气' },
   { to: '/poetry-lines', icon: Milk, title: '诗句' },
   { to: '/holidays', icon: PartyPopper, title: '节日' },

@@ -1,4 +1,6 @@
 import { EventLayout } from '@/layout/EventsLayout'
+import { EventDetailPage } from '@/pages/EventDetailPage'
+import { EventEditPage } from '@/pages/EventEditPage'
 import { EventsNewPage } from '@/pages/EventsNewPage'
 import { EventsPage } from '@/pages/EventsPage'
 
@@ -8,7 +10,7 @@ export const eventsRoutes = {
   children: [
     { index: true, element: <EventsPage /> },
     { path: 'new', element: <EventsNewPage /> },
-    { path: 'edit/:id', element: '' },
-    { path: 'show/:id', element: '' },
+    { path: 'show/:id', element: <EventDetailPage /> },
+    { path: 'edit/:id', element: <EventEditPage /> },
   ],
 }

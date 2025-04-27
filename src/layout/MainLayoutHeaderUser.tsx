@@ -30,8 +30,8 @@ export const MainLayoutHeaderUser: React.FC<Props> = (props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>{user!.nickname}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuItem>{user!.email}</DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem>
             <Button disabled={logoutBtnLoading} onClick={_onClickLogout} variant="link" className="text-[#10b981] px-2 py-1">
               {logoutBtnLoading && <Loader className="animate-spin" />}注销

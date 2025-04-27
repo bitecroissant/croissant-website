@@ -2,38 +2,16 @@ import { EmptyPage } from '@/components/EmptyPage'
 import { ErrorTip } from '@/components/ErrorTip'
 import { PageLoading } from '@/components/PageLoading'
 import { SiteNav } from '@/components/SiteNav'
-import { Button } from '@/components/ui/button'
 import { ajax } from '@/lib/ajax'
-import { ChevronDown, Loader } from 'lucide-react'
-import { useEffect } from 'react'
-import useSWRInfinite from 'swr/infinite'
+import useSWR from 'swr'
 import { EventsPageHeader } from '../components/PageHeader'
 import { EventsPageListItem } from './EventsPageListItem'
 
-function getKey(pageIndex: number, prev: Resources<Event>) {
-  if (prev) {
-    const recievedCount = (prev.pager.page_no - 1) * prev.pager.per_page + prev.resources.length
-    const total = prev.pager.total
-    if (recievedCount >= total) { return null }
-  }
-  return `/v1/events?page_no=${pageIndex + 1}` // SWR key
-}
-
 export const EventsPage: React.FC = () => {
-  const { data: eventsData, error: eventsError, isLoading: eventsLoading, isValidating: eventsValidating, size, setSize } = useSWRInfinite(
-    getKey,
-    async path => (await ajax.get<Resources<Event>>(path)).data,
+  const { data: eventsData, error: eventsError, isLoading: eventsLoading } = useSWR(
+    '/v1/events',
+    async path => (await ajax.get<Resources<EventWithDates>>(path)).data.resources,
   )
-
-  const loadEvents = async () => {
-  }
-  useEffect(() => {
-    loadEvents()
-  }, [])
-
-  const onLoadMore = () => {
-    setSize(size + 1)
-  }
 
   if (eventsLoading) {
     return <PageLoading />
@@ -41,33 +19,15 @@ export const EventsPage: React.FC = () => {
 
   const handleRender = () => {
     if (eventsData) {
-      const lastEventsData = eventsData[eventsData.length - 1]
-      const { page_no, per_page, total } = lastEventsData.pager
-      const hasMore = (page_no - 1) * per_page + lastEventsData.resources.length < total
-
       if (!eventsError) {
         return (
           <>
             <ol className="pt-4 space-y-4">
-              {eventsData.map(({ resources }) => {
-                return resources.map((item) => {
-                  return (
-                    <li className="px-4" key={item.id}> <EventsPageListItem item={item} /> </li>
-                  )
-                })
-              })}
+              {eventsData.map(({ events, event_dates }) => (
+                <li className="px-4" key={events.id}> <EventsPageListItem item={events} dates={event_dates} /> </li>
+              ))}
             </ol>
             {eventsError && (<p>系统开小差了,请刷新页面重试...</p>)}
-            {hasMore
-              ? (
-                  <div className="flex justify-center mt-4">
-                    <Button className="shadow-lg rounded-full" variant="outline" disabled={eventsValidating || eventsLoading} onClick={onLoadMore}>
-                      {(eventsLoading || eventsValidating) ? <Loader className="animate-spin" /> : <ChevronDown />}
-                      {(eventsLoading || eventsValidating) ? '加载中...' : '加载更多'}
-                    </Button>
-                  </div>
-                )
-              : (<div className="flex justify-center mt-4">没有更多数据了...</div>)}
           </>
         )
       }
