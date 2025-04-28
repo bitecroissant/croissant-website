@@ -1,3 +1,4 @@
+import type { MouseEventHandler } from 'react'
 import type { EventsFormType } from './EventsNewPage'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -6,6 +7,7 @@ import { Switch } from '@/components/ui/switch'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { eventsFormSchema } from './EventsNewPage'
 
 interface Props {
@@ -35,14 +37,21 @@ const transferEvent: (eventData: Event | undefined) => EventsFormType = (eventDa
 }
 
 export const EventForm: React.FC<Props> = (props) => {
+  const nav = useNavigate()
+
   const { eventData, onSubmit, submiting } = props
   const form = useForm<EventsFormType>({
     resolver: zodResolver(eventsFormSchema),
     defaultValues: transferEvent(eventData),
   })
 
+  const onCancel: MouseEventHandler<HTMLButtonElement> = (ev) => {
+    ev.preventDefault()
+    nav(-1)
+  }
+
   return (
-    <div>
+    <div className="m-8">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -160,23 +169,26 @@ export const EventForm: React.FC<Props> = (props) => {
             }}
           />
 
-          {eventData
-            ? (
-                <>
-                  <Button disabled={submiting} type="submit" className="w-full mt-8">
-                    {submiting && <Loader className="animate-spin" />} 保存
-                  </Button>
+          <div className="mt-4">
+            {eventData
+              ? (
+                  <>
+                    <Button disabled={submiting} type="submit" className="w-full mt-8">
+                      {submiting && <Loader className="animate-spin" />} 保存
+                    </Button>
 
-                  <Button disabled={submiting} type="submit" className="w-full mt-8" variant="outline">
-                    {submiting && <Loader className="animate-spin" />} 取消
+                    <Button onClick={onCancel} className="w-full mt-8" variant="outline">
+                      取消
+                    </Button>
+                  </>
+                )
+              : (
+                  <Button disabled={submiting} type="submit" className="w-full mt-8">
+                    {submiting && <Loader className="animate-spin" />} 提交
                   </Button>
-                </>
-              )
-            : (
-                <Button disabled={submiting} type="submit" className="w-full mt-8">
-                  {submiting && <Loader className="animate-spin" />} 提交
-                </Button>
-              )}
+                )}
+          </div>
+
         </form>
       </Form>
     </div>

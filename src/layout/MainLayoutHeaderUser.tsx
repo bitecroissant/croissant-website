@@ -1,9 +1,8 @@
 import type { User } from '@auth0/auth0-react'
 import type { MouseEventHandler } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Loader } from 'lucide-react'
+import { Loader, LogOut } from 'lucide-react'
 import { useState } from 'react'
 
 interface Props {
@@ -22,8 +21,8 @@ export const MainLayoutHeaderUser: React.FC<Props> = (props) => {
   return (
     <div className="flex items-center">
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar>
+        <DropdownMenuTrigger asChild>
+          <Avatar className="inline-flex size-[32px]">
             <AvatarImage src={user!.picture} />
             <AvatarFallback>{user!.nickname}</AvatarFallback>
           </Avatar>
@@ -33,9 +32,10 @@ export const MainLayoutHeaderUser: React.FC<Props> = (props) => {
           <DropdownMenuItem>{user!.email}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Button disabled={logoutBtnLoading} onClick={_onClickLogout} variant="link" className="text-[#10b981] px-2 py-1">
-              {logoutBtnLoading && <Loader className="animate-spin" />}注销
-            </Button>
+            <span onClick={_onClickLogout} className="text-[#f07faf] inline-flex text-sm cursor-pointer">
+              {logoutBtnLoading ? <Loader className="animate-spin" /> : <LogOut />}
+              &nbsp;  注销
+            </span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

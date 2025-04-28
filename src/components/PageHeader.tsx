@@ -1,4 +1,3 @@
-import { GradientRedToOrangeText } from '@/components/GradientRedToOrangeText'
 import { useAuth0 } from '@auth0/auth0-react'
 import { ArrowLeft } from 'lucide-react'
 import { MainLayoutHeaderUser } from '../layout/MainLayoutHeaderUser'
@@ -10,7 +9,7 @@ interface Props {
 }
 
 export const EventsPageHeader: React.FC<Props> = (props) => {
-  const { title, subtitle, showBack = false } = props
+  const { title, showBack = false } = props
 
   const { user, logout } = useAuth0()
   const onClickLogout = () => {
@@ -18,21 +17,18 @@ export const EventsPageHeader: React.FC<Props> = (props) => {
   }
 
   return (
-    <header className="fonts-jinbuti flex items-center  p-[12px]
-      sticky top-0 z-[49] w-full border-emerald-100/20
-      border-b bg-gradient-to-r from-emerald-50 via-teal-50/90 to-emerald-50/80
-      backdrop-blur-md supports-[backdrop-filter]:bg-gradient-to-r supports-[backdrop-filter]:from-emerald-50/80 supports-[backdrop-filter]:via-teal-50/70 supports-[backdrop-filter]:to-emerald-50/60
-      shadow-lg"
+    <header className="fonts-jinbuti flex items-center px-4 py-1
+      sticky top-0 z-[49] w-full bg-[#14325a]/80 backdrop-blur-md
+      shadow-lg cursor-pointer"
     >
-      <div className="flex-1 flex flex-col " onClick={() => { window.history.back() }}>
+      <div className="flex-1 flex flex-col " onClick={() => { showBack && window.history.back() }}>
         <div className="flex items-center">
           {showBack && (<ArrowLeft className="mr-1 text-red-400" />)}
-          <GradientRedToOrangeText text={title} className="flex-1 text-2xl font-bold " />
+          <h1 className="fonts-jinbuti flex-1 text-lg font-bold text-[#cdd9e0] ">{ title }</h1>
         </div>
-        {subtitle && <p className="text-sm text-gray-600 ">{subtitle}</p>}
       </div>
 
-      <MainLayoutHeaderUser user={user} onClickLogout={onClickLogout} />
+      { !showBack && <MainLayoutHeaderUser user={user} onClickLogout={onClickLogout} /> }
     </header>
   )
 }

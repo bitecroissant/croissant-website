@@ -1,5 +1,4 @@
 import { EventsPageHeader } from '@/components/PageHeader'
-import { Card } from '@/components/ui/card'
 import { ajax } from '@/lib/ajax'
 import { useState } from 'react'
 import { optional, z } from 'zod'
@@ -27,12 +26,10 @@ export const EventsNewPage: React.FC = () => {
   }
 
   return (
-    <div className=" ">
+    <>
       <EventsPageHeader title="创建新事件" showBack={true} />
 
-      <Card className="mt-8 min-h-screen rounded-lg px-6 shadow-lg pt-6 pb-32">
-        <EventForm onSubmit={onSubmit} submiting={submiting} />
-      </Card>
-    </div>
+      <EventForm onSubmit={onSubmit} submiting={submiting} />
+    </>
   )
 }

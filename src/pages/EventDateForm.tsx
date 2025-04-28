@@ -5,7 +5,6 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { time } from '@/lib/time'
 import { zodResolver } from '@hookform/resolvers/zod'
-import cs from 'classnames'
 import { CalendarIcon, CalendarPlus, Loader, Save, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { optional, z } from 'zod'
@@ -42,7 +41,7 @@ export const EventDateForm: React.FC<Props> = (props) => {
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
-                    <Button variant="outline" className={cs('w-full pl-3 text-left font-normal')}>
+                    <Button variant="outline" className="w-full pl-3 text-left font-normal bg-[#14325a]">
                       {field.value ? (time(field.value).format()) : (<span>选择日期</span>)}
                       <CalendarIcon className="ml-auto w-4 h-4 opacity-50" />
                     </Button>
@@ -63,7 +62,7 @@ export const EventDateForm: React.FC<Props> = (props) => {
                   {submiting && <Loader className="animate-spin w-4 h-4 opacity-50" />}
                   {submiting ? (<span className="opacity-50">记录中...</span>) : (<><Save /> 修改</>)}
                 </Button>
-                <Button onClick={(ev) => { props.onCancel?.(ev) }} variant="outline" className="rounded-lg w-full"><X />取消</Button>
+                <Button onClick={(ev) => { props.onCancel?.(ev) }} variant="outline" className="rounded-lg w-full bg-[#14325a]"><X />取消</Button>
               </>
             )
           : (

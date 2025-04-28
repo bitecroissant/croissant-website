@@ -2,7 +2,10 @@ import { EmptyPage } from '@/components/EmptyPage'
 import { ErrorTip } from '@/components/ErrorTip'
 import { PageLoading } from '@/components/PageLoading'
 import { SiteNav } from '@/components/SiteNav'
+import { Button } from '@/components/ui/button'
 import { ajax } from '@/lib/ajax'
+import { Plus } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { EventsPageHeader } from '../components/PageHeader'
 import { EventsPageListItem } from './EventsPageListItem'
@@ -13,12 +16,18 @@ export const EventsPage: React.FC = () => {
     async path => (await ajax.get<Resources<EventWithDates>>(path)).data.resources,
   )
 
+  const nav = useNavigate()
+
+  const onClickNewEvent = () => {
+    nav('/events/new')
+  }
+
   if (eventsLoading) {
     return <PageLoading />
   }
 
   const handleRender = () => {
-    if (eventsData) {
+    if (eventsData && eventsData.length > 0) {
       if (!eventsError) {
         return (
           <>
@@ -47,6 +56,9 @@ export const EventsPage: React.FC = () => {
       <EventsPageHeader title="我的事件" subtitle="管理和记录您重要的事件" />
       {handleRender()}
       <SiteNav />
+      <Button onClick={onClickNewEvent} className="fixed right-[5%] top-[70%] rounded-full w-[56px] h-[56px] shadow-lg [&_svg]:size-8">
+        <Plus />
+      </Button>
     </div>
   )
 }

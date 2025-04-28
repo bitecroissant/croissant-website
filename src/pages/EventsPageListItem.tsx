@@ -1,4 +1,3 @@
-import { Icon } from '@/components/Icon'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { time } from '@/lib/time'
@@ -19,18 +18,17 @@ export const EventsPageListItem: React.FC<Props> = ({ item, dates }) => {
   }
 
   return (
-    <Card className={cs('relative flex p-4 space-x-4')} onClick={() => { onClickCard(item) }}>
-      <Badge className="rounded-full h-[52px] w-[52px] p-0 flex items-center justify-center bg-orange-600">
-        <Icon className="text-white" name={item.icon_name || 'robot'} />
-      </Badge>
-      <div className="flex-1">
-        <p>
+    <Card className={cs('relative flex px-2 py-4 space-x-4')} onClick={() => { onClickCard(item) }}>
+
+      <div className="flex-1 ">
+        <p className="text-base text-[#ccd6dc]">
           {item.emoji && <span>{item.emoji}</span>}
-          <span className="fonts-jinbuti font-bold">{item.name}</span>
+          <span className="ml-1">{item.name}</span>
         </p>
         {dates && (
-          <div className="flex items-center justify-between text-s space-x-1 text-gray-500">
-            <p className="flex items-center just"><History className="h-[18px] w-[18px] mr-1" />
+          <div className="mt-2 flex items-center justify-between text-xs space-x-1 text-[#ccd6dc]/50">
+            <p className="flex items-center justify-center ">
+              <History className="h-[18px] w-[18px] mr-1" />
               {time(dates?.happen_at).isAfter(new Date()) ? '还要' : '过了'}
               大约
               {time(dates?.happen_at).calcNaturalDaysBetween(time())}
