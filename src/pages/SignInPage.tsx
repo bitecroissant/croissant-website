@@ -17,6 +17,8 @@ export const SginInPage: React.FC = () => {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line no-alert
+    window.alert(JSON.stringify(user))
     if (user?.name) {
       nav('/events')
     }
