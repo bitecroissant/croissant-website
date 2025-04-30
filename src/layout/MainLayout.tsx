@@ -19,19 +19,10 @@ export const MainLayout: React.FC = () => {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line no-alert
-    window.alert(window.location.origin)
-  }, [])
-
-  useEffect(() => {
     // if ((pathname === '/' || pathname === '/session') && isAuthenticated) {
-    //   // eslint-disable-next-line no-alert
-    //   window.alert(`${isLoading} && ${isAuthenticated}`)
     //   nav('/events')
     // }
     // if (!isLoading && !isAuthenticated) {
-    //   // eslint-disable-next-line no-alert
-    //   window.alert(`${isLoading} && ${isAuthenticated}`)
     //   nav('/session')
     // }
   }, [isLoading, isAuthenticated])
