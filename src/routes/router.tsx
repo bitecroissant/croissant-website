@@ -9,12 +9,12 @@ import { sessionRoutes } from './sessionRoutes'
 import { solarTermsRoutes } from './solarTermsRoutes'
 
 export const router = createBrowserRouter([
-  sessionRoutes,
   {
     path: '/',
     errorElement: <ErrorPage />,
     element: <MainLayout />,
     children: [
+      sessionRoutes,
       solarTermsRoutes,
       eventsRoutes,
       eventDatesRoutes,
