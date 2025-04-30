@@ -1,5 +1,6 @@
 import { EmptyPage } from '@/components/EmptyPage'
 import { ErrorTip } from '@/components/ErrorTip'
+import { EventsPageHeader } from '@/components/PageHeader'
 import { PageLoading } from '@/components/PageLoading'
 import { Button } from '@/components/ui/button'
 import { ajax } from '@/lib/ajax'
@@ -81,7 +82,7 @@ export const EventsPage: React.FC = () => {
   return (
     <div className="pb-96 ">
       <p className="text-white text-xl">{isLoadingToken ? '加载中' : '加载完了'}{isAuthenticated ? '授权' : '未授权'}</p>
-      {/* <EventsPageHeader title="我的事件" subtitle="管理和记录您重要的事件" /> */}
+      <EventsPageHeader title="我的事件" subtitle="管理和记录您重要的事件" />
       {handleRender()}
       {/* <SiteNav /> */}
       <Button onClick={onClickNewEvent} className="fixed right-[5%] top-[70%] rounded-full w-[56px] h-[56px] shadow-lg [&_svg]:size-8">
