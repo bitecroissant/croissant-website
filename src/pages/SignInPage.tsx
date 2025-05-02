@@ -1,3 +1,4 @@
+import bgImg from '@/assets/images/app-bg.jpg'
 import { PageLoading } from '@/components/PageLoading'
 import { Button } from '@/components/ui/button'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -39,7 +40,7 @@ export const SginInPage: React.FC = () => {
 
   return (
     <>
-      <div className="signInPageMask bg-[#ecf2fd] min-h-full bg-[url('src/assets/images/app-bg.jpg')] bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden">
+      <div className={ cs("signInPageMask bg-[#ecf2fd] min-h-full bg-[url('src/assets/images/app-bg.jpg')] bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden", `bg-[${bgImg}]`) }>
         <div className="loginView pt-44 min-h-[1000px]">
           <div className="loginBox w-[300px] mx-auto my-0 relative">
             <div>
