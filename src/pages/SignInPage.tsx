@@ -40,7 +40,7 @@ export const SginInPage: React.FC = () => {
 
   return (
     <>
-      <div className={ cs("signInPageMask bg-[#ecf2fd] min-h-full bg-[url('src/assets/images/app-bg.jpg')] bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden", `bg-[${bgImg}]`) }>
+      <div style={{ background: `url(${bgImg})` }} className={ cs("signInPageMask bg-[#ecf2fd] min-h-full bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden") }>
         <div className="loginView pt-44 min-h-[1000px]">
           <div className="loginBox w-[300px] mx-auto my-0 relative">
             <div>
