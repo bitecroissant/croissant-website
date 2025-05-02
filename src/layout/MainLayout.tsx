@@ -13,7 +13,8 @@ export const MainLayout: React.FC = () => {
 
   return (
     <Auth0Provider {...auth0ProviderOptions} onRedirectCallback={onRedirectCallback}>
-      <main className=" bg-gradient-to-r from-[#080f18] via-[#030a15] to-[#080f18] relative min-h-screen list-none ">
+      <main className="mainLayoutOutterContainer">
+        {/* <span className="text-base">我能吞下玻璃而不伤身体</span> */}
         <Outlet />
         <Toaster />
       </main>

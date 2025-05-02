@@ -1,1 +1,47 @@
-<!doctype html> <html lang="zh"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" /> <meta content="yes" name="apple-touch-fullscreen"> <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> <link rel="manifest" href="/site.webmanifest"> <title>可颂笔记</title> <style> html, body, p { padding: 0; margin: 0 } *, *:before, *::after { box-sizing: border-box; } body { font-family: -apple-system, BlinkMacSystemFont, AlibabaPuHuiTiRegular, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif; } </style> <style> .htmlpageloader { width: 28px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(farthest-side, #ffb645 94%, #0000) top/4px 4px no-repeat, conic-gradient(#0000 30%, #ffb645); -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0); animation: l13 1s infinite linear; } @keyframes l13 { 100% { transform: rotate(1turn) } } </style> </head> <body class="dark"> <div id="root"> <div style="height: 100vh; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center;"> <div class="htmlpageloader"></div> </div> </div> <script type="module" src="/src/main.tsx"></script> </body> </html>
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta content="yes" name="apple-touch-fullscreen">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>可颂笔记</title>
+  <style>
+    html, body, p { padding: 0; margin: 0 }
+    *, *:before, *::after { box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, AlibabaPuHuiTiRegular, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
+      min-width: 375px;
+      overflow-x: hidden;
+      background: #ecf2fd;
+    }
+  </style>
+  <style>
+    .htmlpageloader {
+      width: 32px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 3px solid #d2d8e2;
+      border-right-color: #767676;
+      animation: l2 1s infinite linear;
+    }
+
+    @keyframes l2 { to { transform: rotate(1turn) } }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div style="height: 100vh; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="htmlpageloader"></div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

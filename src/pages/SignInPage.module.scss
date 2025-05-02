@@ -1,0 +1,107 @@
+.blurGradientWrapper {
+  --size: 800px;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  height: var(--size);
+  top: min(50%, 600px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .2;
+  mix-blend-mode: multiply;
+
+  .conicItemWrapper {
+    aspect-ratio: 1 / 1;
+    perspective: 1200px;
+    will-change: transform;
+    position: absolute;
+    animation: spin1 6s infinite linear;
+    filter: blur(32px);
+    height: var(--size);
+    top: 50%;
+    left: 57%;
+    transform: translateX(-50%) translateY(-50%) perspective(1200px);
+
+    &.blur70 {
+      filter: blur(70px);
+    }
+
+    &.innserSize {
+      height: calc(var(--size) - 100px);
+    }
+
+    &.spin2 {
+      animation: spin2 5s infinite linear;
+    }
+
+
+    .conicItem {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: 50%;
+      opacity: 0.8;
+      transform: scale(.95);
+    }
+
+    .conicGradientOne {
+      background: conic-gradient(from 0deg at 50% 50%,
+          #ff0080 0deg,
+          #e0f 54deg,
+          #00a6ff 106deg,
+          #4797ff 162deg,
+          #04f 252deg,
+          #ff8000 306deg,
+          #f0c 1turn);
+    }
+
+    .conicGradientTwo {
+      background: conic-gradient(from 0deg at 50% 50%,
+          #ff0080 0deg,
+          #e0f 54deg,
+          #00a6ff 106deg,
+          #4797ff 162deg,
+          #04f 252deg,
+          #ff8000 306deg,
+          #f0c 1turn);
+    }
+
+    .conicGradientThree {
+      background: conic-gradient(from 0deg at 50% 50%,
+          #a6efff 0deg,
+          #12ade6 180deg,
+          #4c63fc 1turn)
+    }
+  }
+}
+
+
+
+@keyframes spin1 {
+  0% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(270deg);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(400deg);
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(630deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(180deg);
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-50%) perspective(1200px) rotate(360deg);
+  }
+}
