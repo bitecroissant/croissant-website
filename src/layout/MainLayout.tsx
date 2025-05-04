@@ -1,7 +1,9 @@
 import type { AppState } from '@auth0/auth0-react'
+import bgImg from '@/assets/images/app-bg.jpg'
 import { auth0ProviderOptions } from '@/auth0/auth0ProviderOptions'
 import { Toaster } from '@/components/ui/toaster'
 import { Auth0Provider } from '@auth0/auth0-react'
+import cs from 'classnames'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 export const MainLayout: React.FC = () => {
@@ -13,7 +15,7 @@ export const MainLayout: React.FC = () => {
 
   return (
     <Auth0Provider {...auth0ProviderOptions} onRedirectCallback={onRedirectCallback}>
-      <main className="mainLayoutOutterContainer">
+      <main style={{ background: `url(${bgImg})` }} className={ cs("signInPageMask bg-[#ecf2fd] min-h-full bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden") }>
         {/* <span className="text-base">我能吞下玻璃而不伤身体</span> */}
         <Outlet />
         <Toaster />
