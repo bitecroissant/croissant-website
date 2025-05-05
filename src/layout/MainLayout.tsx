@@ -15,7 +15,7 @@ export const MainLayout: React.FC = () => {
 
   return (
     <Auth0Provider {...auth0ProviderOptions} onRedirectCallback={onRedirectCallback}>
-      <main style={{ background: `url(${bgImg})` }} className={ cs("signInPageMask bg-[#ecf2fd] min-h-full bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden") }>
+      <main style={{ background: `url(${bgImg})` }} className={cs('bg-[#ecf2fe] min-h-full bg-fixed bg-no-repeat bg-cover relative overflow-x-hidden pb-24 text-[#404040]')}>
         {/* <span className="text-base">我能吞下玻璃而不伤身体</span> */}
         <Outlet />
         <Toaster />

@@ -55,7 +55,7 @@ export const EventForm: React.FC<Props> = (props) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-2"
+          className="space-y-8"
         >
           <FormField
             control={form.control}
@@ -78,7 +78,7 @@ export const EventForm: React.FC<Props> = (props) => {
             name="is_loop"
             render={({ field }) => {
               return (
-                <FormItem className="flex flex-row items-center justify-between">
+                <FormItem className="flex flex-col ">
                   <FormLabel>是否循环</FormLabel>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -94,7 +94,7 @@ export const EventForm: React.FC<Props> = (props) => {
             name="is_pin"
             render={({ field }) => {
               return (
-                <FormItem className="flex flex-row items-center justify-between">
+                <FormItem className="flex flex-col">
                   <FormLabel>是否置顶</FormLabel>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -158,7 +158,7 @@ export const EventForm: React.FC<Props> = (props) => {
             name="is_active"
             render={({ field }) => {
               return (
-                <FormItem className="flex flex-row items-center justify-between">
+                <FormItem className="flex flex-col">
                   <FormLabel>是否生效</FormLabel>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} />

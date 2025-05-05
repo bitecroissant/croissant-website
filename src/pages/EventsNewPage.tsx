@@ -1,4 +1,5 @@
-import { EventsPageHeader } from '@/components/PageHeader'
+import type { AxiosError } from 'axios'
+import { useToast } from '@/hooks/use-toast'
 import { ajax } from '@/lib/ajax'
 import { useState } from 'react'
 import { optional, z } from 'zod'
@@ -19,17 +20,24 @@ export type EventsFormType = z.infer<typeof eventsFormSchema>
 
 export const EventsNewPage: React.FC = () => {
   const [submiting, setSubmiting] = useState(false)
+  const { toast } = useToast()
+
+  const onSubmitError = (err: AxiosError<{ error: string }>) => {
+    err.response?.data && toast({ variant: 'destructive', description: err.response.data?.error })
+    throw err
+  }
 
   async function onSubmit(values: EventsFormType) {
     setSubmiting(true)
-    await ajax.post('/v1/event', values).finally(() => { setSubmiting(false) })
+    await ajax.post('/v1/event', values).catch(onSubmitError).finally(() => { setSubmiting(false) })
+    toast({ description: '🎉 创建成功', duration: 3000 })
   }
 
   return (
     <>
-      <EventsPageHeader title="创建新事件" showBack={true} />
-
-      <EventForm onSubmit={onSubmit} submiting={submiting} />
+      <div className="mt-24 min-h-[1000px]">
+        <EventForm onSubmit={onSubmit} submiting={submiting} />
+      </div>
     </>
   )
 }

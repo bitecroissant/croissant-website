@@ -1,14 +1,13 @@
+import type { AxiosError } from 'axios'
 import type { MouseEventHandler } from 'react'
 import type { EventsDatesType } from './EventDateForm'
 import { EmptyPage } from '@/components/EmptyPage'
 import { ErrorTip } from '@/components/ErrorTip'
 import { Icon } from '@/components/Icon'
-import { EventsPageHeader } from '@/components/PageHeader'
 import { PageLoading } from '@/components/PageLoading'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/hooks/use-toast'
@@ -60,8 +59,17 @@ export const EventDetailPage: React.FC = () => {
     mutateEventDates()
   }
 
+  const onDelteEventDateError = (err: AxiosError<{ error: string }>) => {
+    err.response?.data && toast({
+      variant: 'destructive',
+      title: '删除失败',
+      description: err.response.data?.error,
+    })
+    throw err
+  }
+
   const onDeleteEventDate = async (id: string) => {
-    await ajax.delete(`/v1/event_date/${id}`)
+    await ajax.delete(`/v1/event_date/${id}`).catch(onDelteEventDateError)
     mutateEventDates()
   }
 
@@ -114,130 +122,127 @@ export const EventDetailPage: React.FC = () => {
 
   return (
     <>
-      <EventsPageHeader title="事件详情" showBack={true} />
-      <main className="space-y-4">
-        <Card className="p-4 rounded-none flex flex-col items-center justify-center space-y-4">
-
+      <main className="mt-24 p-4 min-h-[1000px] space-y-4">
+        <div className="p-4 rounded-none flex flex-col items-center justify-center space-y-4">
           <div>
-            <Badge className="rounded-full h-[64px] w-[64px] p-0 flex items-center justify-center bg-orange-600/20">
-              <Icon className="text-white" name={eventData.icon_name || 'robot'} />
+            <Badge className="rounded-full h-[64px] w-[64px] p-0 flex items-center justify-center bg-[#a9d5de]">
+              <Icon className="text-[#639acf]" name={eventData.icon_name || 'robot'} />
             </Badge>
           </div>
 
-          <div className=" text-[#ccd6dc]">
+          <div className="text-sm font-bold text-[#0e566c]">
             <p>{eventData.emoji} {eventData.name}</p>
           </div>
 
           <div className="flex items-center space-x-2">
-            <Badge className="bg-[#091a2f] text-[#939ead] text-xs rounded-full h-[32px] p-2 flex items-center justify-center">
+            <Badge className="bg-[#fbbd08]/50 shadow-lg text-sm rounded-full h-[32px] p-2 flex items-center justify-center">
               <Pin className="w-[14px] h-[14px] mr-1 text-[#feb742]" />
               {eventData.is_pin > 0 ? '已置顶' : '未置顶'}
             </Badge>
-            <Badge className="bg-[#091a2f] text-[#939ead] text-xs rounded-full h-[32px] p-2 flex items-center justify-center">
+            <Badge className="bg-[#468498]/50 shadow-lg text-sm rounded-full h-[32px] p-2 flex items-center justify-center">
               <RefreshCw className="w-[14px] h-[14px] mr-1 text-[#feb742]" />
               {eventData.is_loop > 0 ? '循环' : '不循环'}
             </Badge>
-            <Badge className="bg-[#091a2f] text-[#939ead] text-xs rounded-full h-[32px] p-2 flex items-center justify-center">
+            <Badge className="bg-[#598ef0]/50 shadow-lg text-sm rounded-full h-[32px] p-2 flex items-center justify-center">
               <Ban className="w-[14px] h-[14px] mr-1 text-[#feb742]" />
               {eventData.is_active > 0 ? '已生效' : '未生效'}
             </Badge>
 
           </div>
-
-        </Card>
-        <section className="p-4">
-          <Card className="bg-[#0a1526] p-4 space-y-2 ">
-            <h1 className="flex items-center">
-              <NotepadText className="mr-1" /> 记录发生时间
-            </h1>
-            {
-              selectedEventDate
-                ? (<EventDateForm key={selectedEventDate.id} defaultValues={{ event_date_id: selectedEventDate.id, happen_at: time(selectedEventDate.happen_at).date }} onSubmit={onUpdate} submiting={submiting} onCancel={onCancel} />)
-                : (<EventDateForm defaultValues={{ happen_at: time().date }} onSubmit={onSubmit} submiting={submiting} />)
-            }
-          </Card>
-        </section>
-
-        <section className="p-4">
-          <Card className="bg-[#0a1526] p-4 space-y-2 ">
-            <h1 className="flex items-center">
-              <History className="mr-1" /> 历史记录
-            </h1>
-            <ul>
-              {eventDatesData && eventDatesData.map(item => (
-                <li key={item.id} className="">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-[#ccd6dc]/50">{item.happen_at}</span>
-                    <span className="space-x-2 flex justify-center items-center">
-                      <p className="text-sm text-[#ccd6dc]/50">{ item.is_active ? '(最近)' : '' }</p>
-                      <Button className="h-4 p-0" variant="outline" onClick={() => { setSelectedEventDate(item) }}>
-                        <PencilRuler />
-                      </Button>
-                      <Button className="h-4 p-0" variant="outline" onClick={() => onDeleteEventDate(item.id)}>
-                        <CircleX />
-                      </Button>
-                    </span>
-                  </div>
-
-                  {/* <p><span>id: </span>{item.id}</p>
-                  <p><span>gmt_create: </span>{time(item.gmt_create).format('yyyy MM dd HH mm ss ')}</p>
-                  <p><span>gmt_modified: </span>{time(item.gmt_modified).format('yyyy MM dd HH mm ss ')}</p>
-                  <p><span>delete_flag: </span>{item.delete_flag}</p>
-                  <p><span>is_active: </span>{item.is_active}</p>
-                  <p><span>creator: </span>{item.creator}</p>
-                  <p><span>events_id: </span>{item.events_id}</p>
-                  <p><span>type: </span>{item.type}</p> */}
-
-                  <Separator className="my-1" />
-                </li>
-              ))}
-            </ul>
-          </Card>
-        </section>
-
-        <section className="p-4">
-          <Card className="bg-[#0a1526] p-4 space-y-2 ">
-            <h1 className="flex items-center">
-              <Settings className="mr-1" /> 操作
-            </h1>
-
-            <div className="flex space-x-4">
-              <Button className="flex-1" onClick={onClickEdit}>
-                <FilePenLine /> 编辑
-              </Button>
-
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button className="flex-1 bg-[#f07faf]">
-                    {deleting && <Loader className="animate-spin w-4 h-4 opacity-50" />}
-                    {deleting ? (<span className="opacity-50">删除中...</span>) : (<><Trash2 /> 删除</>)}
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>确认删除事件 {eventData.name} 么？</AlertDialogTitle>
-                    <AlertDialogDescription>删除后无法撤销，对应时间记录也无法找回，确认删除么？</AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>取消</AlertDialogCancel>
-                    <AlertDialogAction onClick={onClickDelete}>确认</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-
+          <Separator className="my-4" />
+        </div>
+        <div className="mt-24 p-4 max-w-[700px] mx-auto bg-white rounded shadow-xl">
+          <section className="">
+            <div className="space-y-4 ">
+              <h1 className="flex items-center">
+                <NotepadText className="mr-1" /> 记录发生时间
+              </h1>
+              {
+                selectedEventDate
+                  ? (<EventDateForm key={selectedEventDate.id} defaultValues={{ event_date_id: selectedEventDate.id, happen_at: time(selectedEventDate.happen_at).date }} onSubmit={onUpdate} submiting={submiting} onCancel={onCancel} />)
+                  : (<EventDateForm defaultValues={{ happen_at: time().date }} onSubmit={onSubmit} submiting={submiting} />)
+              }
+            </div>
+            <Separator className="my-4" />
+          </section>
+          <section className="">
+            <div className="">
+              <h1 className="flex items-center">
+                <History className="mr-1" /> 历史记录
+              </h1>
+              <ul className="mt-4 space-y-2">
+                {(eventDatesData && eventDatesData.length > 0) ? eventDatesData.map(item => (
+                  <li key={item.id} className="">
+                    <div className="flex justify-between items-center p-2">
+                      <span className="text-sm ">{item.happen_at}</span>
+                      <span className="space-x-2 flex justify-center items-center">
+                        <p className="text-sm 0">{item.is_active ? '(最近)' : ''}</p>
+                        <Button className="h-4 p-0" variant="outline" onClick={() => { setSelectedEventDate(item) }}>
+                          <PencilRuler />
+                        </Button>
+                        <Button className="h-4 p-0" variant="outline" onClick={() => onDeleteEventDate(item.id)}>
+                          <CircleX />
+                        </Button>
+                      </span>
+                    </div>
+                    <Separator className="my-1" />
+                  </li>
+                )) : (
+                  <p className="flex items-center justify-center ">
+                    🙏 暂无记录
+                  </p>
+                )}
+              </ul>
             </div>
 
-            <Button className="w-full bg-[#59c26c]" onClick={onClickTogglePin}>
-              {updatingPinStatus && <Loader className="animate-spin w-4 h-4 opacity-50" />}
-              {updatingPinStatus ? (<span className="opacity-50">修改中...</span>) : (<><MapPinCheck /> {eventData.is_pin ? '取消置顶' : '置顶'}</>)}
-            </Button>
+            <Separator className="my-4" />
+          </section>
+          <section className="">
+            <div className="space-y-4 ">
+              <h1 className="flex items-center">
+                <Settings className="mr-1" /> 操作
+              </h1>
 
-            <Button className="w-full bg-[#14325a] text-white" onClick={onClickToggleActive}>
-              {updatingActiveStatus && <Loader className="animate-spin w-4 h-4 opacity-50" />}
-              {updatingActiveStatus ? (<span className="opacity-50">修改中...</span>) : (<><Sparkles /> {eventData.is_active ? '失效' : '生效'} </>)}
-            </Button>
-          </Card>
-        </section>
+              <div className="flex space-x-4">
+                <Button className="flex-1" onClick={onClickEdit}>
+                  <FilePenLine /> 编辑
+                </Button>
+
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button className="flex-1 bg-[#f07faf]">
+                      {deleting && <Loader className="animate-spin w-4 h-4 opacity-50" />}
+                      {deleting ? (<span className="opacity-50">删除中...</span>) : (<><Trash2 /> 删除</>)}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>确认删除事件 {eventData.name} 么？</AlertDialogTitle>
+                      <AlertDialogDescription>删除后无法撤销，对应时间记录也无法找回，确认删除么？</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>取消</AlertDialogCancel>
+                      <AlertDialogAction onClick={onClickDelete}>确认</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
+              </div>
+
+              <Button className="w-full bg-[#59c26c]" onClick={onClickTogglePin}>
+                {updatingPinStatus && <Loader className="animate-spin w-4 h-4 opacity-50" />}
+                {updatingPinStatus ? (<span className="opacity-50">修改中...</span>) : (<><MapPinCheck /> {eventData.is_pin ? '取消置顶' : '置顶'}</>)}
+              </Button>
+
+              <Button className="w-full bg-[#14325a] text-white" onClick={onClickToggleActive}>
+                {updatingActiveStatus && <Loader className="animate-spin w-4 h-4 opacity-50" />}
+                {updatingActiveStatus ? (<span className="opacity-50">修改中...</span>) : (<><Sparkles /> {eventData.is_active ? '失效' : '生效'} </>)}
+              </Button>
+            </div>
+
+            <Separator className="my-4" />
+          </section>
+        </div>
 
       </main>
     </>

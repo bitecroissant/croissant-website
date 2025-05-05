@@ -15,8 +15,8 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <SginInPage /> },
-      solarTermsRoutes,
       eventsRoutes,
+      solarTermsRoutes,
       eventDatesRoutes,
       holidaysRoutes,
       poetryLinesRoutes,

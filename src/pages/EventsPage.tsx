@@ -1,8 +1,8 @@
 import { EmptyPage } from '@/components/EmptyPage'
 import { ErrorTip } from '@/components/ErrorTip'
-import { EventsPageHeader } from '@/components/PageHeader'
 import { PageLoading } from '@/components/PageLoading'
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { ajax } from '@/lib/ajax'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Plus } from 'lucide-react'
@@ -16,7 +16,9 @@ export const EventsPage: React.FC = () => {
     '/v1/events',
     async path => (await ajax.get<Resources<EventWithDates>>(path)).data.resources,
   )
+
   const { isLoading: isLoadingToken, isAuthenticated, getAccessTokenSilently } = useAuth0()
+
   const setJwt = async () => {
     const jwt = await getAccessTokenSilently()
     const savedJwt = window.localStorage.getItem('jwt') || ''
@@ -24,15 +26,6 @@ export const EventsPage: React.FC = () => {
       window.localStorage.setItem('jwt', jwt)
     }
   }
-
-  useEffect(() => {
-    // if ((pathname === '/' || pathname === '/session') && isAuthenticated) {
-    //   nav('/events')
-    // }
-    // if (!isLoading && !isAuthenticated) {
-    //   nav('/session')
-    // }
-  }, [isLoadingToken, isAuthenticated])
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -58,14 +51,17 @@ export const EventsPage: React.FC = () => {
     if (eventsData && eventsData.length > 0) {
       if (!eventsError) {
         return (
-          <>
-            <ol className="pt-4 space-y-4">
+          <ScrollArea className="mt-24 max-w-[700px] mx-auto space-y-2 p-4">
+            <h1 className="text-center text-4xl pb-7">我的事件</h1>
+            <ol className=" space-y-4 bg-white rounded shadow-xl p-4 ">
               {eventsData.map(({ events, event_dates }) => (
-                <li className="px-4" key={events.id}> <EventsPageListItem item={events} dates={event_dates} /> </li>
+                <li className="" key={events.id}>
+                  <EventsPageListItem item={events} dates={event_dates} />
+                </li>
               ))}
             </ol>
-            {eventsError && (<p>系统开小差了,请刷新页面重试...</p>)}
-          </>
+            {eventsError && (<p className="pt-24">系统开小差了,请刷新页面重试...</p>)}
+          </ScrollArea>
         )
       }
     }
@@ -80,14 +76,13 @@ export const EventsPage: React.FC = () => {
   }
 
   return (
-    <div className="pb-96 ">
-      <p className="text-white text-xl">{isLoadingToken ? '加载中' : '加载完了'}{isAuthenticated ? '授权' : '未授权'}</p>
-      <EventsPageHeader title="我的事件" subtitle="管理和记录您重要的事件" />
+    <div className=" min-h-[1000px] ">
       {handleRender()}
-      {/* <SiteNav /> */}
       <Button onClick={onClickNewEvent} className="fixed right-[5%] top-[70%] rounded-full w-[56px] h-[56px] shadow-lg [&_svg]:size-8">
         <Plus />
       </Button>
+
+      {/* <SiteNav /> */}
     </div>
   )
 }

@@ -1,8 +1,7 @@
 import type { User } from '@auth0/auth0-react'
 import type { MouseEventHandler } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Loader, LogOut } from 'lucide-react'
+import { Loader, LogOut, Menu } from 'lucide-react'
 import { useState } from 'react'
 
 interface Props {
@@ -22,10 +21,13 @@ export const MainLayoutHeaderUser: React.FC<Props> = (props) => {
     <div className="flex items-center">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className="inline-flex size-[32px]">
+          <div className="p-1 text-[#404040] flex items-center ">
+            <span>菜单</span><Menu className="w-[36px] h-[36px]" />
+          </div>
+          {/* <Avatar className="inline-flex size-[58px]">
             <AvatarImage src={user!.picture} />
             <AvatarFallback>{user!.nickname}</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>{user!.nickname}</DropdownMenuLabel>

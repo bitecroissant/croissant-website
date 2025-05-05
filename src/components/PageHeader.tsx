@@ -1,34 +1,27 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { ArrowLeft } from 'lucide-react'
+import { ReceiptText } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { MainLayoutHeaderUser } from '../layout/MainLayoutHeaderUser'
 
-interface Props {
-  title: string
-  subtitle?: string
-  showBack?: boolean
-}
-
-export const EventsPageHeader: React.FC<Props> = (props) => {
-  const { title, showBack = false } = props
-
+export const EventsPageHeader: React.FC = () => {
+  const nav = useNavigate()
   const { user, logout } = useAuth0()
   const onClickLogout = () => {
     logout({ logoutParams: { returnTo: window.location.origin } })
   }
 
   return (
-    <header className="fonts-jinbuti flex items-center px-4 py-1
-      sticky top-0 z-[49] w-full bg-[#14325a]/80 backdrop-blur-md
-      shadow-lg cursor-pointer"
+    <header className="fonts-jinbuti flex items-center px-4 py-3.5
+      fixed top-0 z-[49] w-full bg-transparent backdrop-blur-md
+      cursor-pointer"
     >
-      <div className="flex-1 flex flex-col " onClick={() => { showBack && window.history.back() }}>
+      <div className="flex-1 flex flex-col " onClick={() => { nav('/') }}>
         <div className="flex items-center">
-          {showBack && (<ArrowLeft className="mr-1 text-red-400" />)}
-          <h1 className="fonts-jinbuti flex-1 text-lg font-bold text-[#cdd9e0] ">{ title }</h1>
+          <div className="p-1 text-[#7977d7]"><ReceiptText className="w-[52px] h-[52px]" /></div>
         </div>
       </div>
 
-      { !showBack && <MainLayoutHeaderUser user={user} onClickLogout={onClickLogout} /> }
+      { user && <MainLayoutHeaderUser user={user} onClickLogout={onClickLogout} /> }
     </header>
   )
 }

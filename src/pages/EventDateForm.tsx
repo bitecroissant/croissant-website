@@ -41,7 +41,7 @@ export const EventDateForm: React.FC<Props> = (props) => {
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
-                    <Button variant="outline" className="w-full pl-3 text-left font-normal bg-[#14325a]">
+                    <Button variant="outline" className="w-full pl-3 text-left font-normal ">
                       {field.value ? (time(field.value).format()) : (<span>选择日期</span>)}
                       <CalendarIcon className="ml-auto w-4 h-4 opacity-50" />
                     </Button>
