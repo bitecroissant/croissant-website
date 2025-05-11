@@ -3,7 +3,7 @@ import { ReceiptText } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { MainLayoutHeaderUser } from '../layout/MainLayoutHeaderUser'
 
-export const EventsPageHeader: React.FC = () => {
+export const PageHeader: React.FC = () => {
   const nav = useNavigate()
   const { user, logout } = useAuth0()
   const onClickLogout = () => {

@@ -46,3 +46,26 @@ interface EventWithDates {
   events: Event
   event_dates: EventDate
 }
+
+interface SolarTerm {
+  id: string
+  gmt_create: string
+  gmt_modified: string
+  delete_flag: number
+  creator: string
+  index: number
+  name: string
+  en_name: string
+  emoji: string
+  meaning: string
+  meteorological_changes: string
+  related_verses: string
+  custom: string
+  recommended_foods: string
+  addition: string
+}
+
+interface SolartTermWithDates {
+  solar_terms: SolarTerm
+  event_dates: EventDate
+}

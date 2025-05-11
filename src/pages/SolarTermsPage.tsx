@@ -9,12 +9,12 @@ import { Plus } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import { EventsPageListItem } from './EventsPageListItem'
+import { SolarTermsPageListItem } from './SolarTermsPageListItem'
 
-export const EventsPage: React.FC = () => {
-  const { data: eventsData, error: eventsError, isLoading: eventsLoading } = useSWR(
-    '/v1/events',
-    async path => (await ajax.get<Resources<EventWithDates>>(path)).data.resources,
+export const SolarTermsPage: React.FC = () => {
+  const { data: resourcesData, error: resourcesError, isLoading: resourcesLoading } = useSWR(
+    '/v1/solar_terms',
+    async path => (await ajax.get<Resources<SolartTermWithDates>>(path)).data.resources,
   )
 
   const { isLoading: isLoadingToken, isAuthenticated, getAccessTokenSilently } = useAuth0()
@@ -35,40 +35,40 @@ export const EventsPage: React.FC = () => {
 
   const nav = useNavigate()
 
-  const onClickNewEvent = () => {
-    nav('/events/new')
+  const onClickNew = () => {
+    nav('/solar-terms/new')
   }
 
   if (isLoadingToken) {
     return <PageLoading />
   }
 
-  if (eventsLoading) {
+  if (resourcesLoading) {
     return <PageLoading />
   }
 
   const handleRender = () => {
-    if (eventsData && eventsData.length > 0) {
-      if (!eventsError) {
+    if (resourcesData && resourcesData.length > 0) {
+      if (!resourcesError) {
         return (
           <div className="mt-24 max-w-[700px] mx-auto space-y-2 p-4">
-            <h1 className="text-center text-4xl pb-7">我的事件</h1>
+            <h1 className="text-center text-4xl pb-7">24 节气</h1>
             <ScrollArea className="h-[800px]">
               <ol className=" space-y-4 bg-white rounded shadow-xl p-4 ">
-                {eventsData.map(({ events, event_dates }) => (
-                  <li className="" key={events.id}>
-                    <EventsPageListItem item={events} dates={event_dates} />
+                {resourcesData.map(({ solar_terms: resource, event_dates }) => (
+                  <li className="" key={resource.id}>
+                    <SolarTermsPageListItem item={resource} dates={event_dates} />
                   </li>
                 ))}
               </ol>
             </ScrollArea>
-            {eventsError && (<p className="pt-24">系统开小差了,请刷新页面重试...</p>)}
+            {resourcesError && (<p className="pt-24">系统开小差了,请刷新页面重试...</p>)}
           </div>
         )
       }
     }
     else {
-      if (!eventsError) {
+      if (!resourcesError) {
         return (<EmptyPage />)
       }
       else {
@@ -80,7 +80,7 @@ export const EventsPage: React.FC = () => {
   return (
     <>
       {handleRender()}
-      <Button onClick={onClickNewEvent} className="fixed right-[5%] top-[70%] rounded-full w-[56px] h-[56px] shadow-lg [&_svg]:size-8">
+      <Button onClick={onClickNew} className="fixed right-[5%] top-[70%] rounded-full w-[56px] h-[56px] shadow-lg [&_svg]:size-8">
         <Plus />
       </Button>
     </>

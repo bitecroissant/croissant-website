@@ -3,6 +3,7 @@ import type { MouseEventHandler } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Loader, LogOut, Menu } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface Props {
   user?: User
@@ -32,6 +33,12 @@ export const MainLayoutHeaderUser: React.FC<Props> = (props) => {
         <DropdownMenuContent>
           <DropdownMenuLabel>{user!.nickname}</DropdownMenuLabel>
           <DropdownMenuItem>{user!.email}</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem><Link to="/events" className="inline-flex w-full">事件</Link></DropdownMenuItem>
+          <DropdownMenuItem><Link to="/solar-terms" className="inline-flex w-full">节气</Link></DropdownMenuItem>
+          <DropdownMenuItem><Link to="/solar-terms/dates" className="inline-flex w-full">节气时间</Link></DropdownMenuItem>
+          <DropdownMenuItem><Link to="/holidays" className="inline-flex w-full">假期</Link></DropdownMenuItem>
+          <DropdownMenuItem><Link to="/poetry-lines" className="inline-flex w-full">诗句</Link></DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <span onClick={_onClickLogout} className="text-[#f07faf] inline-flex text-sm cursor-pointer">

@@ -2,7 +2,6 @@ import { ErrorPage } from '@/components/ErrorPage'
 import { MainLayout } from '@/layout/MainLayout'
 import { SginInPage } from '@/pages/SignInPage'
 import { createBrowserRouter } from 'react-router-dom'
-import { eventDatesRoutes } from './eventDatesRoutes'
 import { eventsRoutes } from './eventsRoutes'
 import { holidaysRoutes } from './holidaysRoutes'
 import { poetryLinesRoutes } from './poetryLinesRoutes'
@@ -17,7 +16,6 @@ export const router = createBrowserRouter([
       { index: true, element: <SginInPage /> },
       eventsRoutes,
       solarTermsRoutes,
-      eventDatesRoutes,
       holidaysRoutes,
       poetryLinesRoutes,
     ],

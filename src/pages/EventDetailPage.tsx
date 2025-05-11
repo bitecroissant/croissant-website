@@ -171,27 +171,29 @@ export const EventDetailPage: React.FC = () => {
                 <History className="mr-1" /> 历史记录
               </h1>
               <ul className="mt-4 space-y-2">
-                {(eventDatesData && eventDatesData.length > 0) ? eventDatesData.map(item => (
-                  <li key={item.id} className="">
-                    <div className="flex justify-between items-center p-2">
-                      <span className="text-sm ">{item.happen_at}</span>
-                      <span className="space-x-2 flex justify-center items-center">
-                        <p className="text-sm 0">{item.is_active ? '(最近)' : ''}</p>
-                        <Button className="h-4 p-0" variant="outline" onClick={() => { setSelectedEventDate(item) }}>
-                          <PencilRuler />
-                        </Button>
-                        <Button className="h-4 p-0" variant="outline" onClick={() => onDeleteEventDate(item.id)}>
-                          <CircleX />
-                        </Button>
-                      </span>
-                    </div>
-                    <Separator className="my-1" />
-                  </li>
-                )) : (
-                  <p className="flex items-center justify-center ">
-                    🙏 暂无记录
-                  </p>
-                )}
+                {(eventDatesData && eventDatesData.length > 0)
+                  ? eventDatesData.map(item => (
+                      <li key={item.id} className="">
+                        <div className="flex justify-between items-center p-2">
+                          <span className="text-sm ">{item.happen_at}</span>
+                          <span className="space-x-2 flex justify-center items-center">
+                            <p className="text-sm 0">{item.is_active ? '(最近)' : ''}</p>
+                            <Button className="h-4 p-0" variant="outline" onClick={() => { setSelectedEventDate(item) }}>
+                              <PencilRuler />
+                            </Button>
+                            <Button className="h-4 p-0" variant="outline" onClick={() => onDeleteEventDate(item.id)}>
+                              <CircleX />
+                            </Button>
+                          </span>
+                        </div>
+                        <Separator className="my-1" />
+                      </li>
+                    ))
+                  : (
+                      <p className="flex items-center justify-center ">
+                        🙏 暂无记录
+                      </p>
+                    )}
               </ul>
             </div>
 

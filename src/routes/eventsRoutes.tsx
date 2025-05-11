@@ -10,8 +10,8 @@ export const eventsRoutes = {
   element: <EventLayout />,
   children: [
     { index: true, element: <AuthenticationGuard component={EventsPage} /> },
-    { path: 'new', element: <EventsNewPage /> },
-    { path: 'show/:id', element: <EventDetailPage /> },
-    { path: 'edit/:id', element: <EventEditPage /> },
+    { path: 'new', element: <AuthenticationGuard component={EventsNewPage} /> },
+    { path: 'show/:id', element: <AuthenticationGuard component={EventDetailPage} /> },
+    { path: 'edit/:id', element: <AuthenticationGuard component={EventEditPage} /> },
   ],
 }
