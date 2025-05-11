@@ -30,7 +30,7 @@ export const SolarTermDatesEditPage: React.FC = () => {
                   (
                     <>
                       <li className="flex items-center space-x-4 px-3 py-1" key={solar_terms.id}>
-                        <span className="w-[5rem]">{solar_terms.index}、{solar_terms.name}</span>
+                        <span className="w-[7rem]">{solar_terms.index}、{solar_terms.emoji} &nbsp; {solar_terms.name}</span>
                         <span className="flex-1 flex items-center">
                           <SolarTermDatesEditPageItemForm solar_term_id={solar_terms.id} happen_at={event_dates?.happen_at} />
                         </span>

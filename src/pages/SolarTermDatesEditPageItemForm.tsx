@@ -66,7 +66,7 @@ export const SolarTermDatesEditPageItemForm: React.FC<Props> = (props) => {
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar selected={field.value} onSelect={field.onChange} disabled={date => date > time().add(1, 'month').date || date < new Date('1900-01-01')} mode="single" initialFocus />
+                  <Calendar selected={field.value} onSelect={field.onChange} disabled={date => date > time().add(2, 'year').date || date < new Date('1900-01-01')} mode="single" initialFocus />
                 </PopoverContent>
               </Popover>
               <FormMessage />
