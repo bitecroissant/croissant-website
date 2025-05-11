@@ -44,7 +44,7 @@ export const SolarTermDatesEditPageItemForm: React.FC<Props> = (props) => {
 
   const onSubmit = async (values: SolarTermDateType) => {
     setSubmiting(true)
-    await ajax.put('/v1/solar_terms_dates', values).catch(onSubmitError).finally(() => { setSubmiting(false) })
+    await ajax.put('/v1/solar_terms_dates', { events_id: solar_term_id, happen_at: time(values.happen_at).format(), }).catch(onSubmitError).finally(() => { setSubmiting(false) })
     toast({ description: '🎉 修改成功', duration: 3000 })
   }
 
